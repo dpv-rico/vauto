@@ -1,0 +1,26 @@
+name: Set Prod Version
+on:
+  workflow_dispatch:
+  #push:
+   # branches: prod
+
+jobs:
+  release:
+    name: Build Release
+    runs-on: ubuntu-latest
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build Version
+        id: semver
+        uses: huggingface/semver-release-action@latest
+        with:
+          dryRun: false
+          debug: true
+          branches: '["${{ github.ref_name }}"]'
+  

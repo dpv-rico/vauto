@@ -1,0 +1,54 @@
+next-version: v3.0.0
+tag-prefix: '[vV]?'
+
+branches:
+  develop:
+    regex: ^dev$
+    source-branches: []
+    is-source-branch-for: []
+    mode: ContinuousDelivery
+    label: alpha
+    increment: None # Major, Minor or Patch
+    prevent-increment:
+      of-merged-branch: true
+    track-merge-target: false
+    is-release-branch: false
+    is-main-branch: true
+
+  main:
+    regex: ^prod$
+    mode: ContinuousDelivery
+    label: ''
+    increment: Patch
+    prevent-increment:
+      of-merged-branch: true
+    track-merge-target: false
+    is-release-branch: true
+
+  feature:
+    regex: ^(feat|feats?)[/-]
+    mode: ManualDeployment
+    label: useBranchName
+    increment: Inherit
+    prevent-increment:
+      of-merged-branch: false
+    track-merge-target: false
+
+  release:
+    regex: ^(release|releases?)[/-]
+    mode: ContinuousDelivery
+    label: rc
+    increment: Patch
+    is-release-branch: true
+
+  hotfix:
+    regex: ^hotfix(es)?[/-]
+    mode: ContinuousDelivery
+    label: hotfix
+    increment: Patch
+
+  pull-request:
+    regex: ^(pull|pull-requests|pr)[/-]
+    mode: ContinuousDeployment
+    label: PullRequest
+    increment: Inherit
