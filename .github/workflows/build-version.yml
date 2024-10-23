@@ -1,0 +1,39 @@
+name: Release
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - prod
+
+jobs:
+  release:
+    name: Build Release
+    runs-on: ubuntu-latest
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build Version
+        id: semver
+        uses: huggingface/semver-release-action@latest
+        with:
+          branches: '["prod"]'
+
+      - name: Set Version
+        id: update
+        uses: vers-one/dotnet-project-version-updater@v1.6
+        with:
+          file: "**/*.csproj"
+          version: ${{ steps.semver.outputs.version }}
+
+      - name: Push Version
+        run: |
+          sudo chown -R "${USER:-$(id -un)}" .
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "chore(release): ${{ steps.update.outputs.newVersion }}"
+          git push
+  
