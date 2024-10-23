@@ -1,0 +1,12 @@
+name: Dev Branch Protection
+
+on:
+  pull_request:
+    branches: dev
+
+jobs:
+  workflow:
+    uses: ./.github/workflows/merge-protection.yml
+    with:
+      allowed_branches: 'feat/ fix/ release/'
+          
