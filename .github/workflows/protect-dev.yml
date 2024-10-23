@@ -1,0 +1,29 @@
+name: Dev Branch Protection
+
+on:
+  push:
+    branches: dev_
+env:
+  dev_branch: "dev"
+  input_branches: feat/ fix/ release/
+  test_ref: "feat/feat8"
+
+jobs:
+  checking:
+    runs-on: ubuntu-latest
+    steps:
+      - name: is valid branch
+        run: |
+          echo "checking ${{ github.head_ref }}"
+          for branch in ${input_branches[@]}
+          do
+            echo $branch
+            echo ^$branch.*
+            echo $test
+            if echo "${{ env.test_ref }}" | grep ^$branch.*
+            then
+              echo "valid branch" && exit 0
+            fi
+          done
+          echo "merge allowed only from ${input_branches}" && exit 1
+          

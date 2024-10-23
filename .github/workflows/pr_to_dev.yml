@@ -1,0 +1,21 @@
+on:
+  pull_request:
+    types: 
+      - closed
+
+jobs:
+  pr-to-dev:
+    permissions: 
+      pull-requests: write
+      checks: read 
+      contents: read
+    if: github.event.pull_request.merged == true && contains(github.head_ref, 'release')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Create pull request
+        run: gh pr create -B dev -H ${{ github.head_ref }} --title 'Merge ${{ github.head_ref }} into dev' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        

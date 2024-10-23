@@ -1,0 +1,27 @@
+name: Merge Protection
+
+on:
+  workflow_call:
+    inputs:
+      allowed_branches:
+        required: true
+        type: string
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validation
+        run: |
+          echo "validate ${{ github.head_ref }}..."
+          branches="${{ inputs.allowed_branches }}"
+          IFS=" "
+          for branch in $branches;
+          do
+            if echo "${{ github.head_ref }}" | grep -q ^$branch.*
+            then
+              echo "valid branch" && exit 0
+            fi
+          done
+          echo "invalid branch" 
+          echo "pull request only allowed from branches ${{ inputs.allowed_branches }}" && exit 1
