@@ -2,5 +2,5 @@
 
 public class Class1
 {
-    // feat 3
+    // feat 1
 }
