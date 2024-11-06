@@ -7,4 +7,5 @@ public class Class1
     // feat 3
     // feat 4
     // fix 1
+    // fix 2
 }
