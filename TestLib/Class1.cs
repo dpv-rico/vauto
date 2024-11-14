@@ -8,4 +8,5 @@ public class Class1
     // feat 4
     // blub 4
     // fix 1
+    // blub 6
 }
