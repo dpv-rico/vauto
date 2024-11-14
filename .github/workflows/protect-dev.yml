@@ -14,7 +14,8 @@ jobs:
     steps:
       - name: is valid branch
         run: |
-          for branch in ${{env.input_branches2[@]}}
+          echo ${env.input_branches2}
+          for branch in ${env.input_branches2[@]}
           do
             if [[ github.head_ref == $branch* ]]
             then
