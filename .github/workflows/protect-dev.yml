@@ -6,13 +6,20 @@ on:
 env:
   dev_branch: "dev"
   input_branches: '["feat/", "fix/", "release/"]'
+  input_branches2: ("feat/" "fix/" "release/")
 
 jobs:
   checking:
     runs-on: ubuntu-latest
-    if: ${{ !startsWith(fromJson('["feat/", "fix/", "release/"]'), github.head_ref) }}
     steps:
-      - name: Abort
+      - name: is valid branch
         run: |
-          echo "pull request not allowed from this branch"
+          for branch in ${env.input_branches2[@]}
+          do
+            if [[ github.head_ref == $branch* ]]
+            then
+              exit 0
+            fi
+          done
           exit 1
+          
