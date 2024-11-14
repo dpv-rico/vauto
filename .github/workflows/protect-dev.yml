@@ -1,0 +1,17 @@
+name: Dev Branch Protection
+
+on:
+  pull_request:
+    branches: dev
+env:
+  dev_branch: "dev"
+  input_branches: '["feat/", "fix/", "release/"]'
+  is_allowed_branch: ${{ startsWith(fromJson(env.input_branches), github.head_ref }}
+
+jobs:
+  checking:
+    runs-on: ubuntu-latest
+    if: $!env.is_allowed_branch
+    steps:
+      - name: Abort
+        run: exit 1
