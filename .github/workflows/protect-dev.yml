@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: is valid branch
         run: |
-          echo $github.head_ref
+          echo ${github.head_ref}
           for branch in ${input_branches[@]}
           do
             if [[ github.head_ref == $branch* ]]
