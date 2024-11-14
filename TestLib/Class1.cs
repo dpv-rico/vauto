@@ -12,4 +12,5 @@ public class Class1
     // feat new
     // feat 2
     // feat 3
+    // feat 4
 }
