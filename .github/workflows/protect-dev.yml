@@ -1,7 +1,7 @@
 name: Dev Branch Protection
 
 on:
-  pull_request:
+  push:
     branches: dev
 env:
   dev_branch: "dev"
@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: is valid branch
         run: |
-          echo github.head_ref
+          echo $github.head_ref
           for branch in ${input_branches[@]}
           do
             if [[ github.head_ref == $branch* ]]
