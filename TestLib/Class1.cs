@@ -11,4 +11,5 @@ public class Class1
     // blub 7
     // feat new
     // feat 2
+    // feat 3
 }
