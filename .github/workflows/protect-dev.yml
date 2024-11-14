@@ -14,11 +14,11 @@ jobs:
     steps:
       - name: is valid branch
         run: |
-          echo "checking ${{ github.head_ref }}"
+          echo "checking $GITHUB_REF"
           for branch in ${input_branches[@]}
           do
             echo $branch
-            if [[ "${{ env.test_ref }}" == $branch* ]];
+            if [[ "${{ env.test_ref }}" == "$branch"* ]];
             then
               echo "valid branch" && exit 0
             fi
