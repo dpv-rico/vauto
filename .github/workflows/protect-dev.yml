@@ -1,12 +1,11 @@
 name: Dev Branch Protection
 
 on:
-  push:
+  pull_request:
     branches: dev
 env:
   dev_branch: "dev"
-  input_branches: '["feat/", "fix/", "release/"]'
-  input_branches2: ("feat/" "fix/" "release/")
+  input_branches: ("feat/" "fix/" "release/")
 
 jobs:
   checking:
@@ -14,12 +13,12 @@ jobs:
     steps:
       - name: is valid branch
         run: |
-          for branch in ${input_branches2[@]}
+          for branch in ${input_branches[@]}
           do
             if [[ github.head_ref == $branch* ]]
             then
               echo "valid branch" && exit 0
             fi
           done
-          echo "merge allowed only from ${input_branches2}" && exit 1
+          echo "merge allowed only from ${input_branches}" && exit 1
           
