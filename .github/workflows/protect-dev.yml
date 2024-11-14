@@ -5,7 +5,7 @@ on:
     branches: dev
 env:
   dev_branch: "dev"
-  input_branches: ("feat/" "fix/" "release/")
+  input_branches: ( "feat/" "fix/" "release/" )
   input_branches_a: '["feat/", "fix/", "release/"]'
 
 jobs:
@@ -15,7 +15,6 @@ jobs:
       - name: is valid branch
         run: |
           echo ${{ github.head_ref }}
-          echo ${{ fromJson(input_branches_a) }}
           for branch in ${input_branches[@]}
           do
             echo ${branch}
