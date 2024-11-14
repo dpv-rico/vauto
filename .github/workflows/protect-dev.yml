@@ -6,12 +6,13 @@ on:
 env:
   dev_branch: "dev"
   input_branches: '["feat/", "fix/", "release/"]'
-  is_allowed_branch: ${{ startsWith(fromJson(env.input_branches), github.head_ref }}
 
 jobs:
   checking:
     runs-on: ubuntu-latest
-    if: $!env.is_allowed_branch
+    if: ${{ !startsWith(fromJson(env.input_branches), github.head_ref }}
     steps:
       - name: Abort
-        run: exit 1
+        run: |
+          echo "pull request not allowed from this branch"
+          exit 1
