@@ -10,4 +10,5 @@ public class Class1
     // fix 1
     // blub 7
     // feat new
+    // feat 2
 }
