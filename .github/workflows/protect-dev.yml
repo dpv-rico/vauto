@@ -16,7 +16,7 @@ jobs:
           echo ${{ github.head_ref }}
           for branch in ${input_branches[@]}
           do
-            if [[ ${{ github.head_ref }} == $branch* ]]
+            if [[ "${{ github.head_ref }}" == $branch* ]]
             then
               echo "valid branch" && exit 0
             fi
