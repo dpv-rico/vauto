@@ -10,7 +10,7 @@ env:
 jobs:
   checking:
     runs-on: ubuntu-latest
-    if: ${{ !startsWith(fromJson($env.input_branches), github.head_ref }}
+    if: ${{ !startsWith(fromJson(env.input_branches), github.head_ref) }}
     steps:
       - name: Abort
         run: |
