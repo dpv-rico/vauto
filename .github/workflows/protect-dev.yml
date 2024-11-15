@@ -18,7 +18,7 @@ jobs:
           for branch in ${input_branches[@]}
           do
             echo $branch
-            echt ^$branch.*
+            echo ^$branch.*
             test = ^$branch.*
             echt $test
             if echo "${{ env.test_ref }}" | grep ^$branch.*
