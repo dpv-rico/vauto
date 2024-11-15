@@ -5,7 +5,7 @@ on:
     branches: dev
 env:
   dev_branch: "dev"
-  input_branches: ( feat/ fix/ release/ )
+  input_branches: feat/ fix/ release/
   test_ref: "feat/feat8"
 
 jobs:
