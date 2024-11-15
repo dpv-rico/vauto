@@ -18,7 +18,7 @@ jobs:
           IFS=" "
           for branch in $branches;
           do
-            if echo "${{ github.head_ref }}" | grep ^$branch.*
+            if echo "${{ github.head_ref }}" | grep -q ^$branch.*
             then
               echo "valid branch" && exit 0
             fi
