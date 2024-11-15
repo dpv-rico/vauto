@@ -18,7 +18,7 @@ jobs:
         run: |
           echo "validate ${{ github.head_ref }}..."
           echo ${{ inputs.allowed_branches }}
-          branches = "${{ inputs.allowed_branches }}"
+          branches="${{ inputs.allowed_branches }}"
           echo $branches
           echo $IFS
           IFS=","
