@@ -22,4 +22,4 @@ jobs:
             fi
           done
           echo "invalid branch" 
-          echt "pull request only allowed from branches ${allowed_branches}" && exit 1
+          echo "pull request only allowed from branches ${allowed_branches}" && exit 1
