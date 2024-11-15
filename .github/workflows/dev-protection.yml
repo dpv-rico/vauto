@@ -6,7 +6,7 @@ on:
 
 jobs:
   workflow:
-    uses: ./.github/workflows/merge-protection.yml@main
+    uses: ./.github/workflows/merge-protection.yml
     with:
       allowed_branches: feat/ fix/ release/
           
