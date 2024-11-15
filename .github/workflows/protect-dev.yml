@@ -18,7 +18,6 @@ jobs:
           for branch in ${input_branches[@]}
           do
             echo "$branch"
-            branch_trim = echo $branch | xargs
             if echo "${{ env.test_ref }}" | grep $branch
             then
               echo "valid branch" && exit 0
