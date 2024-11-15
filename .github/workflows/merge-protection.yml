@@ -7,6 +7,9 @@ on:
         required: true
         type: string
 
+env:
+  test_ref: "feat/feat8"
+
 jobs:
   validation:
     runs-on: ubuntu-latest
@@ -17,10 +20,11 @@ jobs:
           echo ${{ inputs.allowed_branches }}
           branches = ${{ inputs.allowed_branches }}
           echo $branches
+          IFS=", "
           for branch in $branches[@]
           do
             echo $branch
-            if echo "${{ github.head_ref }}" | grep ^$branch.*
+            if echo "${{ env.test_ref }}" | grep ^$branch.*
             then
               echo "valid branch" && exit 0
             fi
