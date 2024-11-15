@@ -8,5 +8,5 @@ jobs:
   workflow:
     uses: ./.github/workflows/merge-protection.yml
     with:
-      allowed_branches: 'feat/, fix/, release/'
+      allowed_branches: 'feat/ fix/ release/'
           
