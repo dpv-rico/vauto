@@ -19,7 +19,6 @@ jobs:
           do
             echo $branch
             if [[ "${{ env.test_ref }}"  =~ "$branch".* ]]; then
-            then
               echo "valid branch" && exit 0
             fi
           done
