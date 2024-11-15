@@ -17,7 +17,7 @@ jobs:
           echo "checking ${{ github.head_ref }}"
           for branch in ${input_branches[@]}
           do
-            echo "$branch"
+            echo "xx${branch}xx"
             if echo "${{ env.test_ref }}" | grep $branch
             then
               echo "valid branch" && exit 0
