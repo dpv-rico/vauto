@@ -20,7 +20,7 @@ jobs:
             echo $branch
             echo ^$branch.*
             test = ^$branch.*
-            echt $test
+            echo $test
             if echo "${{ env.test_ref }}" | grep ^$branch.*
             then
               echo "valid branch" && exit 0
