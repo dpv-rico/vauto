@@ -20,7 +20,9 @@ jobs:
           echo ${{ inputs.allowed_branches }}
           branches = ${{ inputs.allowed_branches }}
           echo $branches
-          IFS=", "
+          echo $IFS
+          IFS=","
+          echo $IFS
           for branch in $branches;
           do
             echo $branch
