@@ -2,7 +2,7 @@ name: Dev Branch Protection
 
 on:
   push:
-    branches: dev
+    branches: dev_
 env:
   dev_branch: "dev"
   input_branches: feat/ fix/ release/
