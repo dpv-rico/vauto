@@ -19,7 +19,7 @@ jobs:
           do
             echo $branch
             echo ^$branch.*
-            test = ^$branch.*
+            test = "^$branch.*"
             echo $test
             if echo "${{ env.test_ref }}" | grep ^$branch.*
             then
