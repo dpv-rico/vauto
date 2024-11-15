@@ -19,11 +19,8 @@ jobs:
           echo "validate ${{ github.head_ref }}..."
           echo ${{ inputs.allowed_branches }}
           branches="${{ inputs.allowed_branches }}"
-          echo $branches
-          echo $IFS
           IFS=" "
-          echo $IFS
-          for branch in $branches;
+          for branch in $branches[@];
           do
             echo $branch
             if echo "${{ env.test_ref }}" | grep ^$branch.*
