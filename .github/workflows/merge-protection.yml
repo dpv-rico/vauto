@@ -14,6 +14,7 @@ jobs:
       - name: Validation
         run: |
           echo "validate ${{ github.head_ref }}..."
+          echo ${{ inputs.allowed_branches }}
           branches = ${{ fromJson(inputs.allowed_branches) }}
           echo $branches
           for branch in $branches[@]
