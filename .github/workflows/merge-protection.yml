@@ -21,4 +21,5 @@ jobs:
               echo "valid branch" && exit 0
             fi
           done
-          echo "invalid branch" && exit 1
+          echo "invalid branch" 
+          echt "pull request only allowed from branches ${allowed_branches}" && exit 1
