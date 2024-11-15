@@ -18,7 +18,7 @@ jobs:
           for branch in ${input_branches[@]}
           do
             echo "$branch"
-            if [[ "${{ env.test_ref }}" == "${branch | xargs}"* ]]; then
+            if [[ "${{ env.test_ref }}" == "$branch | xargs"* ]]; then
               echo "valid branch" && exit 0
             fi
           done
