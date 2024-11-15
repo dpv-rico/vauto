@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Validation
         run: |
-          echo "validate ${{ github.head_ref }}"
+          echo "validate ${{ github.head_ref }}..."
           for branch in ${allowed_branches[@]}
           do
             if echo "${{ github.head_ref }}" | grep ^$branch.*
