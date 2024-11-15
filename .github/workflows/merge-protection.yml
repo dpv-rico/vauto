@@ -8,7 +8,7 @@ on:
         type: string
 
 env:
-  test_ref: "feat/feat8"
+  test_ref: "release/feat8"
 
 jobs:
   validation:
