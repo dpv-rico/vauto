@@ -18,7 +18,8 @@ jobs:
           for branch in ${input_branches[@]}
           do
             echo "$branch"
-            if echo "${{ env.test_ref }}" | grep -q "$branch" ]]; then
+            if echo "${{ env.test_ref }}" | grep -q "$branch"
+            then
               echo "valid branch" && exit 0
             fi
           done
