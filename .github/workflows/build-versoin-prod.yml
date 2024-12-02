@@ -2,7 +2,7 @@ name: Set Dev Version
 on:
   workflow_dispatch:
   push:
-    branches: dev
+    branches: prod
 
 jobs:
   release:
@@ -21,7 +21,7 @@ jobs:
         id: semver
         uses: huggingface/semver-release-action@latest
         with:
-          dryRun: true
+          dryRun: false
           branches: '["${{ github.ref_name }}"]'
 
       - name: Set Version
