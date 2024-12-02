@@ -7,4 +7,5 @@ public class Class1
     // feat 3
     // fix 10
     // fix 2020
+    // feat 10
 }
