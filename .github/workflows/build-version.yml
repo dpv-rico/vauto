@@ -23,7 +23,7 @@ jobs:
         id: semver
         uses: huggingface/semver-release-action@latest
         with:
-          dryRun: true
+          dryRun: false
           branches: '["${{ github.ref_name }}"]'
 
       - name: Set Version
