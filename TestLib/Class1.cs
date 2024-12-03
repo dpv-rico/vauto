@@ -11,4 +11,5 @@ public class Class1
     // conflict 999
 
     // fixc 1
+    // fix 2
 }
