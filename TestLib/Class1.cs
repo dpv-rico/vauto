@@ -9,4 +9,6 @@ public class Class1
     // fix 2020
     // confi 666
     // conflict 999
+
+    // fixc 1
 }
