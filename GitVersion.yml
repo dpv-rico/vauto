@@ -9,51 +9,30 @@ patch-version-bump-message: "^(fix|perf)(\\([\\w\\s-,/\\\\]*\\))?:"
 branches:
   develop:
     regex: ^dev$
-    source-branches: []
-    is-source-branch-for: []
     mode: ContinuousDelivery
     label: alpha
     increment: None # Values: Major, Minor, Patch or None
-    prevent-increment:
-      of-merged-branch: true
-    track-merge-target: false
-    is-release-branch: false
-    is-main-branch: true
 
   main:
     regex: ^prod$
     mode: ContinuousDelivery
     label: ''
-    increment: Patch
-    prevent-increment:
-      of-merged-branch: true
-    track-merge-target: false
-    is-release-branch: true
+    increment: None
 
   feature:
     regex: ^(feat|feats?)[\/-](?<BranchName>.+)
-    mode: ManualDeployment
+    mode: ContinuousDelivery
     label: '{BranchName}'
     increment: Inherit
-    prevent-increment:
-      of-merged-branch: false
-    track-merge-target: false
 
   release:
     regex: ^(release|releases?)[/-]
     mode: ContinuousDelivery
     label: rc
     increment: None
-    is-release-branch: true
 
   hotfix:
     regex: ^hotfix(es)?[/-]
     mode: ContinuousDelivery
     label: hotfix
-    increment: Patch
-
-  pull-request:
-    regex: ^(pull|pull-requests|pr)[/-]
-    mode: ContinuousDeployment
-    label: PullRequest
-    increment: Inherit
+    increment: None
