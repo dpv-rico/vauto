@@ -43,7 +43,7 @@ branches:
     regex: ^(release|releases?)[/-]
     mode: ContinuousDelivery
     label: rc
-    increment: Patch
+    increment: None
     is-release-branch: true
 
   hotfix:
