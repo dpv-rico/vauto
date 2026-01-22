@@ -13,9 +13,9 @@ branches:
     label: alpha
     increment: None # Values: Major, Minor, Patch or None
 
-  main:
+  production:
     regex: ^prod$
-    mode: ContinuousDelivery
+    mode: ContinuousDeployment
     label: ''
     increment: None
 
