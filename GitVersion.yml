@@ -31,9 +31,9 @@ branches:
     is-release-branch: true
 
   feature:
-    regex: ^(feat|feats?)[/-]
+    regex: ^(feat|feats?)[\/-](?<BranchName>.+)
     mode: ManualDeployment
-    label: useBranchName
+    label: '{BranchName}'
     increment: Inherit
     prevent-increment:
       of-merged-branch: false
