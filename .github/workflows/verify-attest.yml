@@ -1,0 +1,46 @@
+name: Verify Attest
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  attestations: read
+
+jobs:
+  workflow:
+    runs-on: windows-2025
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x' 
+
+      - name: Configure Git Line Endings
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          set-safe-directory: 'false'
+
+      - name: Publish
+        run: dotnet publish -c Release -o ./publish --runtime win-x64 --self-contained false
+
+      - name: Attest Verify
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem -Path publish -Recurse -Include *.dll, *.exe
+          foreach ($file in $files) {
+              Write-Host "Verifying $($file.FullName)..."
+              $size = (Get-Item $($file.FullName)).Length
+              echo "$size Bytes"
+              certutil -hashfile $($file.FullName) SHA256
+              gh attestation verify $($file.FullName) --repo ${{ github.repository }}
+          }
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+
+     
