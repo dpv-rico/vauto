@@ -1,0 +1,47 @@
+name: Build Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+
+    name: Release
+    runs-on: ubuntu-latest
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Publish Project
+        run: dotnet publish -c Release -o ./publish --runtime win-x64 --self-contained false
+
+      - name: Create Zip Package
+        run: zip -r release.win-x64.zip ./publish/*
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@main
+
+      - name: Keyless sign project package
+        run: |
+          # creates a bundle file that containing a signatgure and certificate for later verification
+          cosign sign-blob release.win-x64.zip --bundle release.win-x64.bundle --yes
+
+      - name: Release
+        id: semver
+        uses: huggingface/semver-release-action@latest
+
+      - name: Upload Release Assets
+        if: steps.semver.outputs.released == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release.win-x64.zip
+            release.win-x64.bundle
+          tag_name: ${{ steps.semver.outputs.tag }}
