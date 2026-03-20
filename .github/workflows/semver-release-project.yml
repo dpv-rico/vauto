@@ -39,6 +39,8 @@ jobs:
       - name: Release
         id: semver
         uses: huggingface/semver-release-action@latest
+        with:
+          branches: '["dev"]'
 
       - name: Upload Release Assets
         if: steps.semver.outputs.released == 'true'
