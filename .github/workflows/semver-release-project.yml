@@ -9,8 +9,8 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      id-token: write  # Zwingend erforderlich für OIDC/Keyless Signing
+      contents: write
+      id-token: write  # for keyless signing
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
     steps:
