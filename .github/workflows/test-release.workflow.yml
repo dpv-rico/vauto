@@ -2,9 +2,15 @@ name: "Test Release"
 
 on:
   workflow_dispatch:
+
   
 jobs:
   workflow:
     uses: ./.github/workflows/release-workflow.yml
     with:
       sign: true
+    permissions:
+      contents: write  # release upload
+      id-token: write  # keyless signing
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}

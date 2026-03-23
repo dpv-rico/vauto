@@ -1,0 +1,47 @@
+name: Build Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # release upload
+      id-token: write  # keyless signing
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Release
+        id: semver
+        uses: huggingface/semver-release-action@latest
+        with:
+          branches: '["dev"]'
+
+      - name: Sign Source Code
+        if: steps.semver.outputs.released == 'true'
+        env:
+          TAG: ${{ steps.semver.outputs.tag }}
+        run: |
+          gh release download $TAG --archive=tar.gz --output source.tar.gz
+          gh release download $TAG --archive=zip --output source.zip
+          cosign sign-blob source.tar.gz --bundle source.tar.gz.bundle --yes
+          cosign sign-blob source.zip --bundle source.zip.bundle --yes
+
+      - name: Upload Release Assets
+        if: steps.semver.outputs.released == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release.win-x64.zip
+            release.win-x64.bundle
+            source.tar.gz.bundle
+            source.zip.bundle
+          tag_name: ${{ steps.semver.outputs.tag }}
