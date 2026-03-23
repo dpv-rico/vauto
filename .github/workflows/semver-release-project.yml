@@ -43,13 +43,13 @@ jobs:
           branches: '["dev"]'
 
       - name: Sign Source Code
-        if: steps.semver.outputs.new_release_published == 'true'
+        if: steps.semver.outputs.released == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: v${{ steps.semver.outputs.tag }}
         run: |
           gh release download $TAG --archive=tar.gz --output source.tar.gz
-          cosign sign-blob --yes --output-bundle source.tar.gz.bundle source.tar.gz
+          cosign sign-blob source.tar.gzs --bundle source.tar.gz.bundle  --yes 
 
       - name: Upload Release Assets
         if: steps.semver.outputs.released == 'true'
