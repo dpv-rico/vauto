@@ -35,9 +35,6 @@ jobs:
       - name: Release
         id: semver
         uses: huggingface/semver-release-action@latest
-        with:
-          branches: '[{"name": "prod", "prerelease": false}, {"name": "dev", "prerelease": "alpha"}, {"name": "release/*", "prerelease": "rc"}]'
-          dryRun: ${{ inputs.dry_run }}
 
       - name: Sign Source Code
         if: steps.semver.outputs.released == 'true' && inputs.sign == true
