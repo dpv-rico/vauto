@@ -49,8 +49,8 @@ jobs:
         run: |
           gh release download $TAG --archive=tar.gz --output source.tar.gz
           gh release download $TAG --archive=zip --output source.zip
-          cosign sign-blob source.tar.gz --bundle $TAG.tar.gz.bundle --yes
-          cosign sign-blob source.zip --bundle $TAG.zip.bundle --yes
+          cosign sign-blob source.tar.gz --bundle source.tar.gz.bundle --yes
+          cosign sign-blob source.zip --bundle source.zip.bundle --yes
 
       - name: Upload Release Assets
         if: steps.semver.outputs.released == 'true'
@@ -59,6 +59,6 @@ jobs:
           files: |
             release.win-x64.zip
             release.win-x64.bundle
-            ${{ steps.semver.outputs.tag }}.tar.gz.bundle
-            ${{ steps.semver.outputs.tag }}.zip.bundle
+            source.tar.gz.bundle
+            source.zip.bundle
           tag_name: ${{ steps.semver.outputs.tag }}
