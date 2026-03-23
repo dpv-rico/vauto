@@ -1,0 +1,10 @@
+name: "Test Release"
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  workflow:
+    uses: release-workflow.yml
+    with:
+      sign: true
