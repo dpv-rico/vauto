@@ -9,8 +9,8 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      id-token: write  # for keyless signing
+      contents: write  # release upload
+      id-token: write  # keyless signing
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
     steps:
@@ -42,6 +42,15 @@ jobs:
         with:
           branches: '["dev"]'
 
+      - name: Sign Source Code
+        if: steps.semver.outputs.new_release_published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: v${{ steps.semver.outputs.tag }}
+        run: |
+          gh release download $TAG --archive=tar.gz --output source.tar.gz
+          cosign sign-blob --yes --output-bundle source.tar.gz.bundle source.tar.gz
+
       - name: Upload Release Assets
         if: steps.semver.outputs.released == 'true'
         uses: softprops/action-gh-release@v2
@@ -49,4 +58,5 @@ jobs:
           files: |
             release.win-x64.zip
             release.win-x64.bundle
+            source.tar.gz.bundle
           tag_name: ${{ steps.semver.outputs.tag }}
