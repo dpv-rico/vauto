@@ -55,6 +55,8 @@ jobs:
       - name: Upload Release Assets
         if: steps.semver.outputs.released == 'true'
         uses: softprops/action-gh-release@v2
+        env:
+          TAG: ${{ steps.semver.outputs.tag }}
         with:
           files: |
             release.win-x64.zip
