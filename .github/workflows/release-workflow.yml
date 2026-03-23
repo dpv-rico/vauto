@@ -48,7 +48,7 @@ jobs:
           cosign sign-blob source.zip --bundle source.zip.bundle --yes
 
       - name: Upload Certification Bundle
-        if: steps.semver.outputs.released == 'true'
+        if: steps.semver.outputs.released == 'true' && inputs.sign == true
         uses: softprops/action-gh-release@v2
         with:
           files: |
